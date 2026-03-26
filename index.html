@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>tiggox — Coming Soon</title>
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7G6NKTQ824"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7G6NKTQ824');
+
+    // CUSTOM PAGE VIEW
+    gtag('event', 'page_view_custom');
+
+    // ENGAGEMENT TRACK (10s)
+    setTimeout(() => {
+      gtag('event', 'engaged_user');
+    }, 10000);
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -107,7 +125,6 @@
 
   <div class="container">
 
-    <!-- LOGO -->
     <img src="logo.png" class="logo" />
 
     <h1>Coming Soon</h1>
@@ -117,7 +134,7 @@
     <div class="launch">Launching May 1, 2026</div>
 
     <!-- BUTTON -->
-    <button onclick="showForm()">Get Early Access</button>
+    <button onclick="handleCTA()">Get Early Access</button>
 
     <!-- FORM -->
     <div class="form" id="form">
@@ -127,7 +144,6 @@
       <button onclick="submitForm()">Join Now</button>
     </div>
 
-    <!-- SUCCESS -->
     <div class="success" id="success"></div>
 
     <div class="footer">Powered by TIGGCOIN</div>
@@ -151,10 +167,19 @@
         d + "d " + h + "h " + m + "m " + s + "s";
     }, 1000);
 
+    // CTA CLICK
+    function handleCTA() {
+      gtag('event', 'cta_click');
+      showForm();
+    }
+
     // SHOW FORM
     function showForm() {
       document.querySelector("button").style.display = "none";
       document.getElementById("form").style.display = "flex";
+
+      // TRACK FORM OPEN
+      gtag('event', 'form_open');
     }
 
     // SUBMIT
@@ -169,6 +194,9 @@
         method: "POST",
         body: JSON.stringify({ name, email, country })
       });
+
+      // TRACK SIGNUP
+      gtag('event', 'early_access_signup');
 
       document.getElementById("form").style.display = "none";
       document.getElementById("success").innerText =
