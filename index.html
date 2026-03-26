@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>tiggox — Coming Soon</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #000000;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 500px;
+      padding: 20px;
+    }
+
+    .logo {
+      width: 80px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      margin: 10px 0;
+    }
+
+    .launch {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    #countdown {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: 1px solid #333;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      border-color: #FFD700;
+      color: #FFD700;
+    }
+
+    .form {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 12px;
+      background: transparent;
+      border: 1px solid #333;
+      color: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #FFD700;
+    }
+
+    .success {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-family: Merriweather, serif;
+      color: #FFD700;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- LOGO -->
+    <img src="logo.png" class="logo" />
+
+    <h1>Coming Soon</h1>
+
+    <div id="countdown"></div>
+
+    <div class="launch">Launching May 1, 2026</div>
+
+    <!-- BUTTON -->
+    <button onclick="showForm()">Get Early Access</button>
+
+    <!-- FORM -->
+    <div class="form" id="form">
+      <input type="text" id="name" placeholder="Name" />
+      <input type="email" id="email" placeholder="Email" />
+      <input type="text" id="country" placeholder="Country" />
+      <button onclick="submitForm()">Join Now</button>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success" id="success"></div>
+
+    <div class="footer">Powered by TIGGCOIN</div>
+
+  </div>
+
+  <script>
+    // COUNTDOWN
+    const launchDate = new Date("May 1, 2026 00:00:00").getTime();
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = launchDate - now;
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").innerText =
+        d + "d " + h + "h " + m + "m " + s + "s";
+    }, 1000);
+
+    // SHOW FORM
+    function showForm() {
+      document.querySelector("button").style.display = "none";
+      document.getElementById("form").style.display = "flex";
+    }
+
+    // SUBMIT
+    async function submitForm() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const country = document.getElementById("country").value;
+
+      if (!name || !email || !country) return;
+
+      await fetch("https://script.google.com/macros/s/AKfycbzvJuDpcXtsC3OxrkcSwyBzEfIu8ZHGfO5mg8kqCtaELsZ_lbzMaPP3E_kj-2udmIBjfQ/exec", {
+        method: "POST",
+        body: JSON.stringify({ name, email, country })
+      });
+
+      document.getElementById("form").style.display = "none";
+      document.getElementById("success").innerText =
+        "You’re early, " + name + ". Welcome.";
+    }
+  </script>
+
+</body>
+</html>
