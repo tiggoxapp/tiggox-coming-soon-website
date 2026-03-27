@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>tiggox — Coming Soon</title>
 
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <link rel="apple-touch-icon" href="icon.png">
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7G6NKTQ824"></script>
   <script>
@@ -14,10 +19,8 @@
 
     gtag('config', 'G-7G6NKTQ824');
 
-    // CUSTOM PAGE VIEW
     gtag('event', 'page_view_custom');
 
-    // ENGAGEMENT TRACK (10s)
     setTimeout(() => {
       gtag('event', 'engaged_user');
     }, 10000);
@@ -133,10 +136,8 @@
 
     <div class="launch">Launching May 1, 2026</div>
 
-    <!-- BUTTON -->
     <button onclick="handleCTA()">Get Early Access</button>
 
-    <!-- FORM -->
     <div class="form" id="form">
       <input type="text" id="name" placeholder="Name" />
       <input type="email" id="email" placeholder="Email" />
@@ -151,7 +152,13 @@
   </div>
 
   <script>
-    // COUNTDOWN
+    // SERVICE WORKER
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+
     const launchDate = new Date("May 1, 2026 00:00:00").getTime();
 
     setInterval(() => {
@@ -167,22 +174,17 @@
         d + "d " + h + "h " + m + "m " + s + "s";
     }, 1000);
 
-    // CTA CLICK
     function handleCTA() {
       gtag('event', 'cta_click');
       showForm();
     }
 
-    // SHOW FORM
     function showForm() {
       document.querySelector("button").style.display = "none";
       document.getElementById("form").style.display = "flex";
-
-      // TRACK FORM OPEN
       gtag('event', 'form_open');
     }
 
-    // SUBMIT
     async function submitForm() {
       const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
@@ -195,7 +197,6 @@
         body: JSON.stringify({ name, email, country })
       });
 
-      // TRACK SIGNUP
       gtag('event', 'early_access_signup');
 
       document.getElementById("form").style.display = "none";
