@@ -6,13 +6,13 @@
   <title>tiggox — Coming Soon</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#000000">
 
-  <!-- iOS ICON SUPPORT (IMPORTANT FOR TRANSPARENT ICON) -->
-  <link rel="apple-touch-icon" href="icon.png">
+  <!-- iOS (BEST POSSIBLE CLEAN ICON RENDERING) -->
+  <link rel="apple-touch-icon" href="/icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7G6NKTQ824"></script>
@@ -156,7 +156,6 @@
   </div>
 
   <script>
-    // SERVICE WORKER
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
