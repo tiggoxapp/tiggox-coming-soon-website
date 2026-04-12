@@ -9,7 +9,7 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#000000">
 
-  <!-- iOS (BEST POSSIBLE CLEAN ICON RENDERING) -->
+  <!-- iOS -->
   <link rel="apple-touch-icon" href="/icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -22,7 +22,6 @@
     gtag('js', new Date());
 
     gtag('config', 'G-7G6NKTQ824');
-
     gtag('event', 'page_view_custom');
 
     setTimeout(() => {
@@ -138,9 +137,9 @@
 
     <div id="countdown"></div>
 
-    <div class="launch">Launching May 1, 2026</div>
+    <div class="launch">Launching May 31, 2026</div>
 
-    <button onclick="handleCTA()">Get Early Access</button>
+    <button id="ctaBtn" onclick="handleCTA()">Get Early Access</button>
 
     <div class="form" id="form">
       <input type="text" id="name" placeholder="Name" />
@@ -162,11 +161,37 @@
       });
     }
 
-    const launchDate = new Date("May 1, 2026 00:00:00").getTime();
+    // ✅ Launch: May 31, 2026 — 13:00 (WAT)
+    const launchDate = new Date("2026-05-31T13:00:00+01:00").getTime();
+
+    // ✅ Redirect target
+    const liveURL = "https://tiggox.com/dashboard";
+
+    let hasRedirected = false;
 
     setInterval(() => {
       const now = new Date().getTime();
       const diff = launchDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerText = "We’re Live";
+        document.querySelector("h1").innerText = "We’re Live";
+        document.querySelector(".launch").style.display = "none";
+
+        const btn = document.getElementById("ctaBtn");
+        btn.innerText = "Entering tiggox...";
+        btn.onclick = null;
+
+        if (!hasRedirected) {
+          hasRedirected = true;
+
+          setTimeout(() => {
+            window.location.href = liveURL;
+          }, 2500);
+        }
+
+        return;
+      }
 
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -183,7 +208,7 @@
     }
 
     function showForm() {
-      document.querySelector("button").style.display = "none";
+      document.getElementById("ctaBtn").style.display = "none";
       document.getElementById("form").style.display = "flex";
       gtag('event', 'form_open');
     }
