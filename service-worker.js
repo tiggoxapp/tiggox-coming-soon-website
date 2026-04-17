@@ -1,17 +1,11 @@
-const CACHE_NAME = "tiggox-v1";
+self.addEventListener('install', () => self.skipWaiting());
 
-self.addEventListener("install", e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(["/", "/index.html"]);
-    })
-  );
-});
-
-self.addEventListener("fetch", e => {
-  e.respondWith(
-    caches.match(e.request).then(res => {
-      return res || fetch(e.request);
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    self.registration.unregister().then(() => {
+      return self.clients.matchAll();
+    }).then(clients => {
+      clients.forEach(client => client.navigate(client.url));
     })
   );
 });
