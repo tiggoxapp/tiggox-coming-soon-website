@@ -139,7 +139,7 @@
 
     <div class="launch">Launching August 9, 2026 • 13:00 UTC</div>
     
-    <button id="ctaBtn" onclick="handleCTA()">Get Early Access</button>
+    <button id="ctaBtn" onclick="handleCTA()">Join Waitlist</button>
 
     <div class="form" id="form">
       <input type="text" id="name" placeholder="Name" />
@@ -203,7 +203,7 @@
     }, 1000);
 
     function handleCTA() {
-      gtag('event', 'cta_click');
+      gtag('event', 'waitlist_click');
       showForm();
     }
 
@@ -225,11 +225,36 @@
         body: JSON.stringify({ name, email, country })
       });
 
-      gtag('event', 'early_access_signup');
-
+      gtag('event', 'waitlist_signup');
       document.getElementById("form").style.display = "none";
       document.getElementById("success").innerText =
-        "You’re early, " + name + ". Welcome.";
+        gtag('event', 'waitlist_signup');
+
+document.getElementById("form").style.display = "none";
+
+document.getElementById("success").innerHTML = `
+  <div style="text-align:left;line-height:1.8;">
+    <strong>Welcome, ${name}! 🚀</strong><br><br>
+
+    You have successfully joined the TIGGOX Waitlist.<br><br>
+
+    <strong>Waitlist Name:</strong><br>
+    ${name}<br><br>
+
+    <strong>Waitlist Email:</strong><br>
+    ${email}<br><br>
+
+    You are now on the TIGGOX Waitlist.<br><br>
+
+    We'll send notifications, product updates, launch announcements, feature releases, and important ecosystem news to your registered email address.<br><br>
+
+    Thank you for joining us as we build the future of crypto and finance.<br><br>
+
+    Anytime Crypto.<br><br>
+
+    — TIGGOX
+  </div>
+`;
     }
   </script>
 
