@@ -1,11 +1,37 @@
-self.addEventListener('install', () => self.skipWaiting());
+const CACHE_NAME = "tiggox-v1";
 
-self.addEventListener('activate', event => {
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    self.registration.unregister().then(() => {
-      return self.clients.matchAll();
-    }).then(clients => {
-      clients.forEach(client => client.navigate(client.url));
-    })
+    (async () => {
+      const keys = await caches.keys();
+
+      await Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
+
+      await self.clients.claim();
+
+      const clients = await self.clients.matchAll({
+        type: "window"
+      });
+
+      clients.forEach((client) => {
+        client.navigate(client.url);
+      });
+    })()
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });
