@@ -2,84 +2,121 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>tiggox — anytime crypto</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#000000" />
 
   <!-- iOS -->
-  <link rel="apple-touch-icon" href="/icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icon.png" />
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  />
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  />
+
+  <link rel="icon" href="/icon.png" />
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7G6NKTQ824"></script>
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-7G6NKTQ824"
+  ></script>
+
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
-    gtag('config', 'G-7G6NKTQ824');
-    gtag('event', 'page_view_custom');
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag("config", "G-7G6NKTQ824");
+
+    gtag("event", "page_view_custom");
 
     setTimeout(() => {
-      gtag('event', 'engaged_user');
+      gtag("event", "engaged_user");
     }, 10000);
   </script>
 
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
       background: #000000;
-      color: #FFFFFF;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
       display: flex;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+      align-items: center;
+      padding: 24px;
     }
 
     .container {
+      width: 100%;
+      max-width: 520px;
       text-align: center;
-      max-width: 500px;
-      padding: 20px;
     }
 
     .logo {
-      width: 80px;
-      margin-bottom: 20px;
+      width: 90px;
+      margin-bottom: 24px;
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(12px);
       animation: fadeIn 1.2s ease forwards;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       font-weight: 500;
-      margin: 10px 0;
+      margin-bottom: 12px;
     }
 
     .launch {
-      font-size: 0.9rem;
-      color: #888;
-      margin-bottom: 20px;
+      color: #888888;
+      font-size: 0.95rem;
+      margin-top: 8px;
+      margin-bottom: 28px;
     }
 
     #countdown {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
     }
 
     button {
-      padding: 12px 24px;
-      border: 1px solid #333;
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #333333;
       background: transparent;
       color: white;
       cursor: pointer;
-      transition: 0.3s;
+      transition: .3s;
+      font-size: 16px;
     }
 
     button:hover {
@@ -87,18 +124,26 @@
       color: #FFD700;
     }
 
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
     .form {
       display: none;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 14px;
+      margin-top: 24px;
     }
 
     input {
-      padding: 12px;
+      width: 100%;
+      padding: 14px;
       background: transparent;
-      border: 1px solid #333;
+      border: 1px solid #333333;
       color: white;
+      border-radius: 10px;
+      font-size: 16px;
       outline: none;
     }
 
@@ -107,15 +152,20 @@
     }
 
     .success {
-      margin-top: 20px;
-      font-size: 1.2rem;
+      display: none;
+      margin-top: 30px;
+      text-align: left;
+      line-height: 1.8;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
     }
 
     .footer {
-      margin-top: 40px;
-      font-family: Merriweather, serif;
+      margin-top: 45px;
       color: #FFD700;
-      font-size: 0.9rem;
+      font-family: Merriweather, serif;
+      font-size: .95rem;
     }
 
     @keyframes fadeIn {
@@ -125,138 +175,313 @@
       }
     }
   </style>
+
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <img src="logo.png" class="logo" />
+  <img
+    src="logo.png"
+    class="logo"
+    alt="tiggox logo"
+    loading="lazy"
+  >
 
-    <h1>Coming Soon</h1>
+  <h1 id="title">
+    Coming Soon
+  </h1>
 
-    <div id="countdown"></div>
+  <div id="countdown"></div>
 
-    <div class="launch">Launching August 9, 2026 • 13:00 UTC</div>
-    
-    <button id="ctaBtn" onclick="handleCTA()">Join Waitlist</button>
+  <div
+    class="launch"
+    id="launchText"
+  >
+    Launching August 9, 2026 • 13:00 UTC
+  </div>
 
-    <div class="form" id="form">
-      <input type="text" id="name" placeholder="Name" />
-      <input type="email" id="email" placeholder="Email" />
-      <input type="text" id="country" placeholder="Country" />
-      <button onclick="submitForm()">Join Now</button>
-    </div>
+  <button id="ctaBtn">
+    Join Waitlist
+  </button>
 
-    <div class="success" id="success"></div>
+  <div
+    class="form"
+    id="form"
+  >
 
-    <div class="footer">Powered by TIGGCOIN</div>
+    <input
+      id="name"
+      type="text"
+      placeholder="Name"
+    >
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+    >
+
+    <input
+      id="country"
+      type="text"
+      placeholder="Country"
+    >
+
+    <button id="submitBtn">
+      Join Now
+    </button>
 
   </div>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
+  <div
+    id="success"
+    class="success"
+  ></div>
+
+  <div class="footer">
+    Powered by TIGGCOIN
+  </div>
+
+</div>
+
+<script>
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js");
+  });
+}
+
+const launchDate = new Date(
+  "2026-08-09T13:00:00Z"
+).getTime();
+
+const liveURL =
+"https://tiggox.com/dashboard";
+
+let redirected = false;
+
+function pad(value) {
+  return String(value).padStart(2, "0");
+}
+  setInterval(() => {
+
+  const now = Date.now();
+
+  const diff = launchDate - now;
+
+  if (diff <= 0) {
+
+    document.getElementById("title").textContent = "We're Live";
+
+    document.getElementById("countdown").textContent = "We're Live";
+
+    document.getElementById("launchText").style.display = "none";
+
+    const btn = document.getElementById("ctaBtn");
+
+    btn.textContent = "Entering tiggox...";
+
+    btn.disabled = true;
+
+    if (!redirected) {
+
+      redirected = true;
+
+      setTimeout(() => {
+        window.location.href = liveURL;
+      }, 2500);
+
     }
 
-    // ✅ Launch: August 9, 2026 — 13:00 (UTC)
-    const launchDate = new Date("2026-08-09T13:00:00Z").getTime();
-    
-    // ✅ Redirect target
-    const liveURL = "https://tiggox.com/dashboard";
+    return;
 
-    let hasRedirected = false;
+  }
 
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = launchDate - now;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-      if (diff <= 0) {
-        document.getElementById("countdown").innerText = "We’re Live";
-        document.querySelector("h1").innerText = "We’re Live";
-        document.querySelector(".launch").style.display = "none";
+  const hours = Math.floor(
+    (diff / (1000 * 60 * 60)) % 24
+  );
 
-        const btn = document.getElementById("ctaBtn");
-        btn.innerText = "Entering tiggox...";
-        btn.onclick = null;
+  const minutes = Math.floor(
+    (diff / (1000 * 60)) % 60
+  );
 
-        if (!hasRedirected) {
-          hasRedirected = true;
+  const seconds = Math.floor(
+    (diff / 1000) % 60
+  );
 
-          setTimeout(() => {
-            window.location.href = liveURL;
-          }, 2500);
-        }
+  document.getElementById("countdown").textContent =
+    `${pad(days)}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
 
-        return;
+}, 1000);
+
+
+const ctaBtn = document.getElementById("ctaBtn");
+
+ctaBtn.addEventListener("click", () => {
+
+  gtag("event", "waitlist_click");
+
+  ctaBtn.style.display = "none";
+
+  document.getElementById("form").style.display = "flex";
+
+  gtag("event", "form_open");
+
+});
+
+
+document
+.getElementById("submitBtn")
+.addEventListener("click", submitForm);
+
+
+async function submitForm() {
+
+  const name =
+    document.getElementById("name").value.trim();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const country =
+    document.getElementById("country").value.trim();
+
+
+  if (!name || !email || !country) {
+
+    alert("Please complete all fields.");
+
+    return;
+
+  }
+
+  const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+
+    alert("Please enter a valid email address.");
+
+    return;
+
+  }
+
+  const submitBtn =
+    document.getElementById("submitBtn");
+
+  submitBtn.disabled = true;
+
+  submitBtn.textContent = "Joining...";
+
+  try {
+
+    const response = await fetch(
+
+      "https://script.google.com/macros/s/AKfycbzvJuDpcXtsC3OxrkcSwyBzEfIu8ZHGfO5mg8kqCtaELsZ_lbzMaPP3E_kj-2udmIBjfQ/exec",
+
+      {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify({
+
+          name,
+          email,
+          country
+
+        })
+
       }
 
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
+    );
 
-      document.getElementById("countdown").innerText =
-        d + "d " + h + "h " + m + "m " + s + "s";
-    }, 1000);
+    if (!response.ok) {
 
-    function handleCTA() {
-      gtag('event', 'waitlist_click');
-      showForm();
+      throw new Error("Submission failed");
+
     }
 
-    function showForm() {
-      document.getElementById("ctaBtn").style.display = "none";
-      document.getElementById("form").style.display = "flex";
-      gtag('event', 'form_open');
-    }
+    gtag("event", "waitlist_signup");
 
-    async function submitForm() {
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const country = document.getElementById("country").value;
+    document.getElementById("form").style.display = "none";
 
-      if (!name || !email || !country) return;
+    const success =
+      document.getElementById("success");
 
-      await fetch("https://script.google.com/macros/s/AKfycbzvJuDpcXtsC3OxrkcSwyBzEfIu8ZHGfO5mg8kqCtaELsZ_lbzMaPP3E_kj-2udmIBjfQ/exec", {
-        method: "POST",
-        body: JSON.stringify({ name, email, country })
-      });
+    success.style.display = "block";
 
-      gtag('event', 'waitlist_signup');
-      document.getElementById("form").style.display = "none";
-      document.getElementById("success").innerText =
-        gtag('event', 'waitlist_signup');
+    success.innerHTML = `
 
-document.getElementById("form").style.display = "none";
+      <strong>Welcome, ${name}! 🚀</strong>
 
-document.getElementById("success").innerHTML = `
-  <div style="text-align:left;line-height:1.8;">
-    <strong>Welcome, ${name}! 🚀</strong><br><br>
+      <br><br>
 
-    You have successfully joined the TIGGOX Waitlist.<br><br>
+      Your place on the
+      <strong>TIGGOX Waitlist</strong>
+      has been reserved.
 
-    <strong>Waitlist Name:</strong><br>
-    ${name}<br><br>
+      <br><br>
 
-    <strong>Waitlist Email:</strong><br>
-    ${email}<br><br>
+      <strong>Name</strong><br>
+      ${name}
 
-    You are now on the TIGGOX Waitlist.<br><br>
+      <br><br>
 
-    We'll send notifications, product updates, launch announcements, feature releases, and important ecosystem news to your registered email address.<br><br>
+      <strong>Email</strong><br>
+      ${email}
 
-    Thank you for joining us as we build the future of crypto and finance.<br><br>
+      <br><br>
 
-    Anytime Crypto.<br><br>
+      We'll send you:
 
-    — TIGGOX
-  </div>
-`;
-    }
-  </script>
+      <br><br>
+
+      • Product updates<br>
+      • Launch announcements<br>
+      • Feature releases<br>
+      • Ecosystem news
+
+      <br><br>
+
+      Thank you for joining us as we build the future of crypto and finance.
+
+      <br><br>
+
+      <strong>Anytime Crypto.</strong>
+
+      <br><br>
+
+      — TIGGOX
+
+    `;
+
+  } catch (error) {
+
+    alert(
+      "Unable to join the waitlist. Please try again."
+    );
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent = "Join Now";
+
+  }
+
+}
+
+</script>
 
 </body>
+
 </html>
