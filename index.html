@@ -467,11 +467,9 @@ async function submitForm() {
     `;
 
   } catch (error) {
-
-    alert(
-      "Unable to join the waitlist. Please try again."
-    );
-
+  console.error(error);
+  alert(error.message);
+                 }
     submitBtn.disabled = false;
 
     submitBtn.textContent = "Join Now";
